@@ -1,0 +1,40 @@
+name: build
+
+on:
+  workflow_dispatch:
+
+jobs:
+  build:
+    runs-on: ubuntu-24.04
+    permissions:
+      contents: write
+
+    steps:
+      - name: checkout repository
+        uses: actions/checkout@v4
+
+      - name: setup jdk
+        uses: actions/setup-java@v4
+        with:
+          java-version: '21'
+          distribution: 'temurin'
+
+      - name: create mio_merged.jar
+        run: |
+          mkdir -p /tmp/build_src
+          rsync -a --exclude='.git' --exclude='.github' ./ /tmp/build_src/
+          jar cf $GITHUB_WORKSPACE/mio_merged.jar -C /tmp/build_src .
+
+      - name: capture build artifacts
+        uses: actions/upload-artifact@v4
+        with:
+          name: Artifacts
+          path: mio_merged.jar
+
+      - uses: "marvinpinto/action-automatic-releases@latest"
+        if: ${{ runner.os == 'Linux' }}
+        with:
+          repo_token: "${{ secrets.GITHUB_TOKEN }}"
+          automatic_release_tag: "latest"
+          prerelease: true
+          files: mio_merged.jar

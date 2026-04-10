@@ -1,0 +1,22 @@
+{
+	"schemaVersion": 1,
+	"id": "mioclient",
+	"version": "1.0",
+	"name": "Mio Client",
+	"authors": ["me"],
+	"environment": "client",
+	"entrypoints": {
+		"main": [
+			"nick.Loader"
+		],
+		"preLaunch": [
+			"nick.Plugin"
+		]
+	},
+	"depends": {
+		"minecraft": "~1.21.1",
+		"fabric-api": "*"
+	},
+	"mixins": ["mio.mixins.json"],
+	"accessWidener": "mio.accesswidener"
+}
