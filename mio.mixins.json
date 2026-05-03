@@ -1,5 +1,5 @@
 {
-	"required": true,
+	"required": false,
 	"package": "me.mioclient.mixin",
 	"compatibilityLevel": "JAVA_21",
 	"mixins": [
@@ -159,7 +159,7 @@
 		"sodium.MixinSodiumBlockRenderer"
 	],
 	"injectors": {
-		"defaultRequire": 1
+		"defaultRequire": 0
 	},
 	"refmap": "refmap.json"
 }
